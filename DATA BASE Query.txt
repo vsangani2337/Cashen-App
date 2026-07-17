@@ -1,0 +1,41 @@
+CREATE DATABASE cashen_db;
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    user_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    description TEXT NOT NULL,
+    amount NUMERIC(10,2) NOT NULL,
+    type VARCHAR(50) NOT NULL, -- 'income' or 'expense'
+    category VARCHAR(255),
+    date DATE DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE budgets (
+    id SERIAL PRIMARY KEY,
+    user_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    category VARCHAR(255) NOT NULL,
+    limit_amount NUMERIC(10,2) NOT NULL
+);
+
+CREATE TABLE loans (
+    id SERIAL PRIMARY KEY,
+    user_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL, -- 'Borrowed' or 'Lent'
+    amount NUMERIC(10,2) NOT NULL
+);
+
+CREATE TABLE goals (
+    id SERIAL PRIMARY KEY,
+    user_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    target_amount NUMERIC(10,2) NOT NULL,
+    saved_amount NUMERIC(10,2) DEFAULT 0.00
+);
