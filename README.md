@@ -63,7 +63,7 @@ CASHEN/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/ChetanSenta/Cashen.git
+git clone https://github.com/vsangani2337/Cashen-App
 cd Cashen
 ```
 
